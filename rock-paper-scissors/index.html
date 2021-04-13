@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Rock, Paper or Scissors</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <section id="computer-zone">
+        <img id="computerChoice" src=" " alt=" " height="100px" width="100px" />
+        </section>
+
+      <!-- <p id="result">PERDISTE</p> -->
+
+      <!-- TAREA -->
+      <p id="result">Ready? Set? GO! Choose your option</p>
+
+      <p id="counterWonLost"> </p>
+    
+      <!-- Y SI SE ANIMAN -->
+      <section id="match-result">
+        <p id="counter"> 0 - 0 </p>
+      </section>
+      <!-- EL PRIMERO QUE LLEGA A 3 ES EL GANADOR -->
+
+      <section id="player-zone">
+        <img id="playerChoice" src=" " alt=" " height="100px" width="100px" />
+        </section>
+
+      <section>
+        <button data-choice="rock">
+          <img src="imgs/rock.png" alt="rock" height="100px" width="100px"/>
+        </button>
+        <button data-choice="paper">
+          <img src="imgs/paper.png" alt="paper" height="100px" width="100px"/>
+        </button>
+        <button data-choice="scissors">
+          <img src="imgs/scissors.png" alt="scissors" height="100px" width="100px" />
+        </button>
+      </section>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
