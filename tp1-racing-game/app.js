@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const canvas = document.getElementById("canvas");
 
 const gameBoard = canvas.getContext("2d");
