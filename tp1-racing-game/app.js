@@ -94,8 +94,8 @@ function update() {
   //Generamos el auto de la IA
   if (!CarRivalPosition) {
     CarRivalPosition = {
-      positionCarIaX: getRandomX(),
-      positionCarIaY: getRandomY(),
+      positionX: getRandomX(),
+      positionY: getRandomY(),
     };
   }
 }
