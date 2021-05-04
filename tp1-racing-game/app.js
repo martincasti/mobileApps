@@ -21,7 +21,6 @@ function drawStreet() {
     positionStreetY: Street.positionStreetY,
   };
   while (localStreet.positionStreetY < 800) {
-    console.log("dibujando street");
     gameBoard.fillRect(
       localStreet.positionStreetX,
       localStreet.positionStreetY,
@@ -74,11 +73,12 @@ let futureCarY = 0;
 //Dibujamos el auto del jugador
 drawCar(CarPosition);
 
-function drawCar(obj) {
+function drawCar(obj, color) {
+  gameBoard.fillStyle = color;
   gameBoard.fillRect(obj.positionX, obj.positionY, sizeWidthCar, sizeHeightCar);
 }
 
-setInterval(main, 1000);
+setInterval(main, 100);
 
 //creo las funcion main(game loop)
 function main() {
@@ -98,22 +98,38 @@ function update() {
       positionY: getRandomY(),
     };
   }
+  checkCarCollision();
 }
 
 function getRandomX() {
   //coloco los numero del 1 al 15
-  return console.log(Math.floor(Math.random() * 10) * 30);
+  console.log(Math.floor(Math.random() * 10) * 85);
+  return Math.floor(Math.random() * (295 - 100)) + 100;
 }
 
 function getRandomY() {
   //coloco los numeros del 1 al 23
-  return console.log(Math.floor(Math.random() * 23) * 30);
+  return Math.floor(Math.random() * (590 - 200)) + 200;
+}
+
+function checkCarCollision() {
+  //Se pierde cuando se sale del limite de las calles
+
+  //Se pierde cuando chocan con el auto rival auto
+  if (
+    CarPosition.positionX == CarRivalPosition.positionX &&
+    CarPosition.positionY == CarRivalPosition.positionY
+  ) {
+    console.log("Perdsite");
+    alert("GAME OVER");
+  }
 }
 
 function draw() {
-  gameBoard.clearRect(0, 0, canvas.width, canvas.height);
-  drawCar(CarPosition);
-  drawCar(CarRivalPosition);
+  gameBoard.fillStyle = "grey";
+  gameBoard.fillRect(0, 0, canvas.width, canvas.height);
+  drawCar(CarPosition, "red");
+  drawCar(CarRivalPosition, "black");
   lineStreetLeft(lineStreet);
   lineStreetRight(lineStreet);
   drawStreet();
@@ -125,19 +141,25 @@ document.addEventListener("keydown", moveCarPosition);
 function moveCarPosition(event) {
   switch (event.key) {
     case "ArrowUp":
-      console.log("MoveUp");
-      futureCarX = 0;
-      futureCarY += 30;
+      if (futureCarY == 0) {
+        console.log("MoveUp");
+        futureCarX = 0;
+        futureCarY += 30;
+      }
       break;
     case "ArrowLeft":
-      console.log("MoveLeft");
-      futureCarX -= 30;
-      futureCarY = 0;
+      if (futureCarX == 0) {
+        console.log("MoveLeft");
+        futureCarX -= 30;
+        futureCarY = 0;
+      }
       break;
     case "ArrowRight":
-      console.log("MoveRight");
-      futureCarX += 30;
-      futureCarY = 0;
+      if (futureCarX == 0) {
+        console.log("MoveRight");
+        futureCarX += 30;
+        futureCarY = 0;
+      }
       break;
     default:
       console.log("Estas tocando otra tecla que no es una flecha");
