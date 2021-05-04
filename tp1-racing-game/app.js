@@ -133,6 +133,7 @@ function checkCarCollision() {
   }
 
   if (leftCollision || rightCollision) {
+    console.log("rompe aca");
     alert("Game Over");
   }
 }
