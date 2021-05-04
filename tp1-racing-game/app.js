@@ -12,19 +12,24 @@ const Street = {
   positionStreetY: 0,
 };
 
-drawStreet(Street);
+drawStreet();
 //Guardo las formas de separacion de carriles
 
-function drawStreet(obj) {
-  while (obj.positionStreetY < 800) {
+function drawStreet() {
+  let localStreet = {
+    positionStreetX: Street.positionStreetX,
+    positionStreetY: Street.positionStreetY,
+  };
+  while (localStreet.positionStreetY < 800) {
+    console.log("dibujando street");
     gameBoard.fillRect(
-      obj.positionStreetX,
-      obj.positionStreetY,
+      localStreet.positionStreetX,
+      localStreet.positionStreetY,
       sizeWidthDotted,
       sizeHeightDotted
     );
 
-    obj.positionStreetY += 100;
+    localStreet.positionStreetY += 100;
   }
 }
 
@@ -108,9 +113,10 @@ function getRandomY() {
 function draw() {
   gameBoard.clearRect(0, 0, canvas.width, canvas.height);
   drawCar(CarPosition);
+  //drawCar(CarRivalPosition);
   lineStreetLeft(lineStreet);
   lineStreetRight(lineStreet);
-  drawStreet(Street);
+  drawStreet();
 }
 
 //Creo la funcion que toma el evento de las teclas que estoy tocando
