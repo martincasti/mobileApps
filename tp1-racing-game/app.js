@@ -113,7 +113,7 @@ function getRandomY() {
 function draw() {
   gameBoard.clearRect(0, 0, canvas.width, canvas.height);
   drawCar(CarPosition);
-  //drawCar(CarRivalPosition);
+  drawCar(CarRivalPosition);
   lineStreetLeft(lineStreet);
   lineStreetRight(lineStreet);
   drawStreet();
