@@ -113,15 +113,27 @@ function getRandomY() {
 }
 
 function checkCarCollision() {
+  const leftCollision = CarPosition.positionY < 300;
+  const rightCollision = CarPosition.positionY > 90;
+
   //Se pierde cuando se sale del limite de las calles
+  if (
+    CarPosition.positionX === Street.lineStreetRight ||
+    CarPosition.positionX === Street.lineStreetLeft
+  ) {
+    alert("Game Over");
+  }
 
   //Se pierde cuando chocan con el auto rival auto
   if (
     CarPosition.positionX == CarRivalPosition.positionX &&
     CarPosition.positionY == CarRivalPosition.positionY
   ) {
-    console.log("Perdsite");
     alert("GAME OVER");
+  }
+
+  if (leftCollision || rightCollision) {
+    alert("Game Over");
   }
 }
 
