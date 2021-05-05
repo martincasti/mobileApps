@@ -113,8 +113,9 @@ function getRandomY() {
 }
 
 function checkCarCollision() {
-  const leftCollision = CarPosition.positionX < 300;
-  const rightCollision = CarPosition.positionX < 60;
+  //const topCollision = CarPosition.positionY < 0;
+  //const leftCollision = CarPosition.positionX > 85;
+  //const rightCollision = CarPosition.positionX > 300;
 
   //Se pierde cuando se sale del limite de las calles
   if (
@@ -132,12 +133,13 @@ function checkCarCollision() {
     alert("GAME OVER");
   }
 
-  if (leftCollision || rightCollision) {
-    console.log("rompe aca");
-    alert("Game Over");
-  } else {
-    return console.log("siga siga");
-  }
+  //Esta funcion la tuve que comentar porque no entiendo el por que me lupea... tampoco, logre que me tomara las collision
+  //if (topCollision || leftCollision || rightCollision) {
+  //console.log("rompe aca");
+  //alert("Game Over");
+  //} else {
+  //return console.log("siga siga");
+  //}
 }
 
 function draw() {
