@@ -113,8 +113,8 @@ function getRandomY() {
 }
 
 function checkCarCollision() {
-  const leftCollision = CarPosition.positionY < 300;
-  const rightCollision = CarPosition.positionY > 90;
+  const leftCollision = CarPosition.positionX < 300;
+  const rightCollision = CarPosition.positionX < 60;
 
   //Se pierde cuando se sale del limite de las calles
   if (
@@ -135,6 +135,8 @@ function checkCarCollision() {
   if (leftCollision || rightCollision) {
     console.log("rompe aca");
     alert("Game Over");
+  } else {
+    return console.log("siga siga");
   }
 }
 
