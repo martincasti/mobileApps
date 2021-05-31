@@ -71,7 +71,7 @@ let futureCarX = 0;
 let futureCarY = 0;
 
 //Dibujamos el auto del jugador
-drawCar(CarPosition);
+drawCar(CarPosition); // Esta llamada a drawCar no hace nada, se puede borrar
 
 function drawCar(obj, color) {
   gameBoard.fillStyle = color;
@@ -103,7 +103,7 @@ function update() {
 
 function getRandomX() {
   //coloco los numero del 1 al 15
-  console.log(Math.floor(Math.random() * 10) * 85);
+  console.log(Math.floor(Math.random() * 10) * 85); // Borrar console.log
   return Math.floor(Math.random() * (295 - 100)) + 100;
 }
 
@@ -113,12 +113,18 @@ function getRandomY() {
 }
 
 function checkCarCollision() {
-  //const topCollision = CarPosition.positionY < 0;
-  //const leftCollision = CarPosition.positionX > 85;
-  //const rightCollision = CarPosition.positionX > 300;
+  // const topCollision = CarPosition.positionY < 0;
+  // const leftCollision = CarPosition.positionX < 85;
+  // const rightCollision = CarPosition.positionX > 300;
 
   //Se pierde cuando se sale del limite de las calles
+
   if (
+    /*
+      Ningun valor de la constante Street que estás construyendo arriba
+      tiene el nombre de 'lineStreetRight' (o 'lineStreetLeft'), en todo caso
+      debería ser 'positionStreetX'
+    */
     CarPosition.positionX === Street.lineStreetRight ||
     CarPosition.positionX === Street.lineStreetLeft
   ) {
@@ -127,19 +133,23 @@ function checkCarCollision() {
 
   //Se pierde cuando chocan con el auto rival auto
   if (
-    CarPosition.positionX == CarRivalPosition.positionX &&
-    CarPosition.positionY == CarRivalPosition.positionY
+    // usar triple igual siempre: ===
+    CarPosition.positionX === CarRivalPosition.positionX &&
+    CarPosition.positionY === CarRivalPosition.positionY
+    /*
+      La collision con el CarRival nunca está coincidiendo porque al movimiento del
+      auto le estás sumando/restando de a 30, entonces nunca están coincidiendo los números
+    */
   ) {
     alert("GAME OVER");
   }
 
   //Esta funcion la tuve que comentar porque no entiendo el por que me lupea... tampoco, logre que me tomara las collision
-  //if (topCollision || leftCollision || rightCollision) {
-  //console.log("rompe aca");
-  //alert("Game Over");
-  //} else {
-  //return console.log("siga siga");
-  //}
+  // if (topCollision || leftCollision || rightCollision) {
+  //   alert("Game Over");
+  // } else {
+  //   return console.log("siga siga");
+  // }
 }
 
 function draw() {
@@ -159,21 +169,21 @@ function moveCarPosition(event) {
   switch (event.key) {
     case "ArrowUp":
       if (futureCarY == 0) {
-        console.log("MoveUp");
+        console.log("MoveUp"); // Borrar log
         futureCarX = 0;
         futureCarY += 30;
       }
       break;
     case "ArrowLeft":
       if (futureCarX == 0) {
-        console.log("MoveLeft");
+        console.log("MoveLeft"); // Borrar log
         futureCarX -= 30;
         futureCarY = 0;
       }
       break;
     case "ArrowRight":
       if (futureCarX == 0) {
-        console.log("MoveRight");
+        console.log("MoveRight"); // Borrar log
         futureCarX += 30;
         futureCarY = 0;
       }
