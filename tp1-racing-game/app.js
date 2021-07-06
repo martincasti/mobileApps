@@ -111,30 +111,35 @@ function getRandomY() {
 
 function checkCarCollision() {
   const topCollision = CarPosition.positionY < -80;
-  const leftCollision = CarPosition.positionX > 290;
+  const leftCollision = CarPosition.positionX > 280;
   const rightCollision = CarPosition.positionX < 100;
 
   //Se pierde cuando se sale del limite de las calles
 
-  if (leftCollision || rightCollision || topCollision) {
+  if (leftCollision || rightCollision) {
     console.log("aca choca paredes");
 
     return true;
   }
+  if (topCollision) {
+    return true;
+  }
 
-  //Se pierde cuando chocan con el auto rival auto
-  //if (
-  // usar triple igual siempre: ===
-  // CarRivalPosition.positionX === CarPosition.positionX &&
-  //CarRivalPosition.positionY === CarPosition.positionY
-  /*
+  //Se pierde cuando chocan con el auto rival auto width = 40 height = 80
+  if (
+    CarRivalPosition.positionX < CarPosition.positionX + 40 &&
+    CarRivalPosition.positionX + 40 > CarPosition.positionX &&
+    CarRivalPosition.positionY < CarPosition.positionY + 80 &&
+    80 + CarRivalPosition.positionY > CarPosition.positionY
+    /*
       La collision con el CarRival nunca está coincidiendo porque al movimiento del
       auto le estás sumando/restando de a 10, entonces nunca están coincidiendo los números
     */
-  // ) {
-  // console.log("choca auto");
-  //return true;
-  //}
+  ) {
+    console.log("choca auto");
+    return true;
+  }
+
   return false;
 }
 
