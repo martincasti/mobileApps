@@ -42,15 +42,9 @@ const lineStreet = {
   positionRightLine: 330,
 };
 
-lineStreetLeft(lineStreet);
-lineStreetRight(lineStreet);
-
-function lineStreetRight(obj) {
-  gameBoard.fillRect(obj.positionRightLine, 0, sizeWidthLine, sizeHeightLine);
-}
-
-function lineStreetLeft(obj) {
+function lineStreetdraw(obj) {
   gameBoard.fillRect(obj.positionLeftLine, 0, sizeWidthLine, sizeHeightLine);
+  gameBoard.fillRect(obj.positionRightLine, 0, sizeWidthLine, sizeHeightLine);
 }
 
 //forma de los autos tanto player como IA
@@ -71,7 +65,6 @@ let futureCarX = 0;
 let futureCarY = 0;
 
 //Dibujamos el auto del jugador
-drawCar(CarPosition); // Esta llamada a drawCar no hace nada, se puede borrar
 
 function drawCar(obj, color) {
   gameBoard.fillStyle = color;
@@ -88,6 +81,12 @@ function main() {
 
 //se crea la funcion update, que es la que va a updetear la posicion del auto en el eje Y
 function update() {
+  //genero la c
+  const isGameOver = checkCarCollision();
+  if (isGameOver) {
+    gameOver();
+    return;
+  }
   CarPosition.positionY -= futureCarY;
   CarPosition.positionX += futureCarX;
 
@@ -101,9 +100,17 @@ function update() {
   checkCarCollision();
 }
 
+function gameOver() {
+  alert("Perdiste");
+  //reiniciamos valores
+  CarPosition.positionX = 130;
+  CarPosition.positionY = 660;
+  futureCarX = 0;
+  futureCarY = 0;
+}
+
 function getRandomX() {
   //coloco los numero del 1 al 15
-  console.log(Math.floor(Math.random() * 10) * 85); // Borrar console.log
   return Math.floor(Math.random() * (295 - 100)) + 100;
 }
 
@@ -113,43 +120,32 @@ function getRandomY() {
 }
 
 function checkCarCollision() {
-  // const topCollision = CarPosition.positionY < 0;
-  // const leftCollision = CarPosition.positionX < 85;
-  // const rightCollision = CarPosition.positionX > 300;
+  const topCollision = CarPosition.positionY < -80;
+  const leftCollision = CarPosition.positionX > 290;
+  const rightCollision = CarPosition.positionX < 90;
 
   //Se pierde cuando se sale del limite de las calles
 
-  if (
-    /*
-      Ningun valor de la constante Street que estás construyendo arriba
-      tiene el nombre de 'lineStreetRight' (o 'lineStreetLeft'), en todo caso
-      debería ser 'positionStreetX'
-    */
-    CarPosition.positionX === Street.lineStreetRight ||
-    CarPosition.positionX === Street.lineStreetLeft
-  ) {
-    alert("Game Over");
+  if (leftCollision || rightCollision || topCollision) {
+    console.log("aca choca paredes");
+
+    return true;
   }
 
   //Se pierde cuando chocan con el auto rival auto
   if (
     // usar triple igual siempre: ===
-    CarPosition.positionX === CarRivalPosition.positionX &&
-    CarPosition.positionY === CarRivalPosition.positionY
+    CarRivalPosition.positionX === CarPosition.positionX &&
+    CarRivalPosition.positionY === CarPosition.positionY
     /*
       La collision con el CarRival nunca está coincidiendo porque al movimiento del
-      auto le estás sumando/restando de a 30, entonces nunca están coincidiendo los números
+      auto le estás sumando/restando de a 10, entonces nunca están coincidiendo los números
     */
   ) {
-    alert("GAME OVER");
+    console.log("choca auto");
+    return true;
   }
-
-  //Esta funcion la tuve que comentar porque no entiendo el por que me lupea... tampoco, logre que me tomara las collision
-  // if (topCollision || leftCollision || rightCollision) {
-  //   alert("Game Over");
-  // } else {
-  //   return console.log("siga siga");
-  // }
+  return false;
 }
 
 function draw() {
@@ -157,8 +153,7 @@ function draw() {
   gameBoard.fillRect(0, 0, canvas.width, canvas.height);
   drawCar(CarPosition, "red");
   drawCar(CarRivalPosition, "black");
-  lineStreetLeft(lineStreet);
-  lineStreetRight(lineStreet);
+  lineStreetdraw(lineStreet);
   drawStreet();
 }
 
@@ -169,22 +164,25 @@ function moveCarPosition(event) {
   switch (event.key) {
     case "ArrowUp":
       if (futureCarY == 0) {
-        console.log("MoveUp"); // Borrar log
         futureCarX = 0;
-        futureCarY += 30;
+        futureCarY += 10;
+      }
+      break;
+    case "ArrowDown":
+      if (futureCarY == 0) {
+        futureCarX = 0;
+        futureCarY -= 10;
       }
       break;
     case "ArrowLeft":
       if (futureCarX == 0) {
-        console.log("MoveLeft"); // Borrar log
-        futureCarX -= 30;
+        futureCarX -= 10;
         futureCarY = 0;
       }
       break;
     case "ArrowRight":
       if (futureCarX == 0) {
-        console.log("MoveRight"); // Borrar log
-        futureCarX += 30;
+        futureCarX += 10;
         futureCarY = 0;
       }
       break;
