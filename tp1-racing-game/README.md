@@ -1,4 +1,4 @@
-#Racing Game
+# Racing Game
 
 El juego es simple, deberas llegar al final de la carrera, esquivando los autos.
 `CONSEJO: ten cuidado con el cordon, no te lo vayas a comer`.
