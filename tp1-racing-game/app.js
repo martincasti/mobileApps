@@ -80,12 +80,6 @@ function main() {
 
 //se crea la funcion update, que es la que va a updetear la posicion del auto en el eje Y
 function update() {
-  //genero la c
-  const isGameOver = checkCarCollision();
-  if (isGameOver) {
-    gameOver();
-    return;
-  }
   CarPosition.positionY -= futureCarY;
   CarPosition.positionX += futureCarX;
 
@@ -97,6 +91,18 @@ function update() {
     };
   }
   checkCarCollision();
+  //genero la c
+  const isGameOver = checkCarCollision();
+  if (isGameOver) {
+    gameOver();
+    return true;
+  }
+
+  const isYouWin = checkCarCollision();
+  if (isYouWin) {
+    youWin();
+    return false;
+  }
 }
 
 function getRandomX() {
@@ -121,9 +127,6 @@ function checkCarCollision() {
 
     return true;
   }
-  if (topCollision) {
-    return true;
-  }
 
   //Se pierde cuando chocan con el auto rival auto width = 40 height = 80
   if (
@@ -138,9 +141,11 @@ function checkCarCollision() {
   ) {
     console.log("choca auto");
     return true;
+  } else {
+    if (topCollision) {
+      return youWin;
+    }
   }
-
-  return false;
 }
 
 function gameOver() {
