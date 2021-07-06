@@ -57,19 +57,18 @@ const CarPosition = {
   positionY: 660,
 };
 
-//creamos la variable para generar el auto rival
-let CarRivalPosition = null;
-
 //generamos las variales de las posiciones futuras del auto del jugador
 let futureCarX = 0;
 let futureCarY = 0;
-
-//Dibujamos el auto del jugador
 
 function drawCar(obj, color) {
   gameBoard.fillStyle = color;
   gameBoard.fillRect(obj.positionX, obj.positionY, sizeWidthCar, sizeHeightCar);
 }
+//creamos la variable para generar el auto rival
+let CarRivalPosition = null;
+
+//Dibujamos el auto del jugador
 
 setInterval(main, 100);
 
@@ -100,15 +99,6 @@ function update() {
   checkCarCollision();
 }
 
-function gameOver() {
-  alert("Perdiste");
-  //reiniciamos valores
-  CarPosition.positionX = 130;
-  CarPosition.positionY = 660;
-  futureCarX = 0;
-  futureCarY = 0;
-}
-
 function getRandomX() {
   //coloco los numero del 1 al 15
   return Math.floor(Math.random() * (295 - 100)) + 100;
@@ -122,7 +112,7 @@ function getRandomY() {
 function checkCarCollision() {
   const topCollision = CarPosition.positionY < -80;
   const leftCollision = CarPosition.positionX > 290;
-  const rightCollision = CarPosition.positionX < 90;
+  const rightCollision = CarPosition.positionX < 100;
 
   //Se pierde cuando se sale del limite de las calles
 
@@ -133,19 +123,28 @@ function checkCarCollision() {
   }
 
   //Se pierde cuando chocan con el auto rival auto
-  if (
-    // usar triple igual siempre: ===
-    CarRivalPosition.positionX === CarPosition.positionX &&
-    CarRivalPosition.positionY === CarPosition.positionY
-    /*
+  //if (
+  // usar triple igual siempre: ===
+  // CarRivalPosition.positionX === CarPosition.positionX &&
+  //CarRivalPosition.positionY === CarPosition.positionY
+  /*
       La collision con el CarRival nunca está coincidiendo porque al movimiento del
       auto le estás sumando/restando de a 10, entonces nunca están coincidiendo los números
     */
-  ) {
-    console.log("choca auto");
-    return true;
-  }
+  // ) {
+  // console.log("choca auto");
+  //return true;
+  //}
   return false;
+}
+
+function gameOver() {
+  alert("Perdiste");
+  //reiniciamos valores
+  CarPosition.positionX = 130;
+  CarPosition.positionY = 660;
+  futureCarX = 0;
+  futureCarY = 0;
 }
 
 function draw() {
